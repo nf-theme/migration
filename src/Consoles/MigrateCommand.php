@@ -22,9 +22,10 @@ class MigrateCommand extends Command
         $paths = $this->getMigrationPaths();
         $files = $this->getMigrationFiles($paths);
 
-        $files->each(function ($file) {
+        $files->each(function ($file) use ($output) {
             $instance = $this->resolve($file);
             call_user_func([$instance, 'up']);
+            $output->writeln("<info>Migrated:</info> {$file['filename']}");
         });
     }
 }
