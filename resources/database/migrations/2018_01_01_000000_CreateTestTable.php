@@ -1,11 +1,11 @@
 <?php
 namespace Theme\Database;
 
-use Garung\Database\Adapter\DBManager;
-use Illuminate\Database\Schema\Blueprint;
+use Garung\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateTestTable extends DBManager
+class CreateTestTable extends NFDatabase
 {
     public $table = 'test';
 

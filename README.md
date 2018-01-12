@@ -12,7 +12,7 @@ composer require garung/migration-for-nftheme
 ```php
   'providers'  => [
         // .... Others providers 
-        \Garung\Database\Providers\DatabaseProvider::class,
+        \Garung\Database\Providers\DatabaseServiceProvider::class,
     ],
 ```
 ##### Step 3: Add namespace
@@ -41,6 +41,7 @@ php command migration:publish
 php command make:migration [name_migrate_file] [name_table_in_database]
 ```
 
+Example:
 ```
 php command make:migration CreateTestTable test
 ```

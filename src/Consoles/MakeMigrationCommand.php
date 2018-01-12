@@ -7,7 +7,6 @@ use NF\Facades\Storage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-// use NF\CompileBladeString\BladeCompiler;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Support\Collection;
@@ -38,10 +37,10 @@ class MakeMigrationCommand extends Command
 namespace Theme\Database;
 
 use Illuminate\Database\Schema\Blueprint;
-use Garung\Database\Adapter\DBManager;
+use Garung\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class {{$file_name}} extends DBManager
+class {{$file_name}} extends NFDatabase
 {
     public $table = '{{ $name_table }}';
 
