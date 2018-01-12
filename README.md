@@ -1,5 +1,5 @@
 ## Another way to working with database
- > It's an extension for our theme https://github.com/hieu-pv/nf-theme
+> It's an extension for our theme https://github.com/hieu-pv/nf-theme
 
 #### Installation
 ##### Step 1: Install Through Composer
@@ -15,25 +15,25 @@ composer require garung/migration-for-nftheme
         \Garung\Database\Providers\DatabaseServiceProvider::class,
     ],
 ```
-##### Step 3: Add namespace
-> Update your `composer.json`
+##### Step 3: Update autoload rule
+Add the following code to `autoload` section of your `composer.json`
 
 ```php
-    "autoload": {
-        "classmap": [
-            "database"
-        ]
-    },
+    "classmap": [
+        "database"
+    ]
 ```
 
-##### Step 4: Run publish command
-> It will create a new folder `database` in your theme
+##### Step 4: Publish needed files
+By run publis command we will see a new folder called `database` in your theme root directory
 
 ```
 php command migration:publish
 ```
 
-##### Step 5: Create migration file for new table
+##### Step 5: Play with command
+
+Create migration file 
 
 ```php
 php command make:migration {file_name} --create="{table_name}"
@@ -53,11 +53,12 @@ php command make:migration create_test_table --create=test
 php command make:migration add_more_column_to_test_table --table=test
 ```
 
-##### Step 4: Migrate your tables
+##### Step 6: Migrate your tables
 
 ```php
 php command migrate
 ```
+
 ###### Rollback all migration file
 
 ```php
