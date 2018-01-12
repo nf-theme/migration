@@ -13,7 +13,7 @@ class MigrateCommand extends Command
     protected function configure()
     {
         $this->setName('migrate')
-            ->setDescription('Publish configuration for garung/migration')
+            ->setDescription('Migrate all database migration')
             ->setHelp('php command migrate');
     }
 
