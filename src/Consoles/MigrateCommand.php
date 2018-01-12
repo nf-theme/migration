@@ -1,15 +1,15 @@
 <?php
 namespace Garung\Database\Consoles;
 
-use Garung\Database\Facades\BussinessDB;
+use Garung\Database\Consoles\Traits\Migrator;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class MigrateCommand extends Command
 {
+    use Migrator;
+
     protected function configure()
     {
         $this->setName('migrate')
@@ -19,11 +19,12 @@ class MigrateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $notes = BussinessDB::run('database/migrations', 'up');
-        if(!empty($notes)) {
-            foreach ($notes as $key => $note) {
-                $output->write($note, true);
-            }
-        }
+        $paths = $this->getMigrationPaths();
+        $files = $this->getMigrationFiles($paths);
+
+        $files->each(function ($file) {
+            $instance = $this->resolve($file);
+            call_user_func([$instance, 'up']);
+        });
     }
 }

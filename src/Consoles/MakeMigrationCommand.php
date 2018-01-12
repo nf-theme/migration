@@ -9,52 +9,57 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Illuminate\Support\Collection;
 
 class MakeMigrationCommand extends Command
 {
+    const CREATE = 'create';
+    const UPDATE = 'update';
     protected function configure()
     {
-        $this->setName('make:migration')
+        $this->setName('make:migration {name}')
             ->setDescription('Create a migration')
-            ->setHelp('php command make:migration {{name_table}}')
-            ->addArgument('name_migrate', InputArgument::REQUIRED, 'Name of migration file.')
-            ->addArgument('name_table', InputArgument::REQUIRED, 'Name of migration file.')
-            ->addOption('override', null, InputOption::VALUE_OPTIONAL, 'Override exist file.', null);
+            ->setHelp('php command make:migration {{name}}')
+            ->addArgument('name', InputArgument::REQUIRED, 'Name')
+            ->addOption('create', null, InputOption::VALUE_OPTIONAL, 'Create new table')
+            ->addOption('table', null, InputOption::VALUE_OPTIONAL, 'Update existing table');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name_table     = mb_strtolower($input->getArgument('name_table'));
-        $name           = $input->getArgument('name_migrate');
+        if ($input->getOption('create') == null && $input->getOption('table') == null) {
+            $output->writeln('<error>You have to provide option --create or --update</error>');
+            exit;
+        } else {
+            if ($input->getOption('create') != null) {
+                $mode       = self::CREATE;
+                $table_name = snake_case($input->getOption('create'));
+            } else {
+                $mode       = self::UPDATE;
+                $table_name = snake_case($input->getOption('table'));
+            }
+        }
+        $name           = snake_case($input->getArgument('name'));
+        $class_name     = studly_case($input->getArgument('name'));
         $path           = '/database' . DIRECTORY_SEPARATOR . 'migrations';
-        $file_name      = studly_case($name);
         $file_extension = '.php';
-        $file_path      = $this->getPath($file_name, $path, $file_extension);
-        $migrateName    = str_slug($name, '_');
+        $file_path      = $this->getPath($name, $path, $file_extension);
 
-        $migrate_blade = <<<'EOT'
-namespace Theme\Database;
-
+        if ($mode == self::CREATE) {
+            $stuff = <<<'EOT'
 use Illuminate\Database\Schema\Blueprint;
 use Garung\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class {{$file_name}} extends NFDatabase
+class {{$class_name}} extends NFDatabase
 {
-    public $table = '{{ $name_table }}';
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    private $table = '{{ $table_name }}';
 
     public function up()
     {
         global $wpdb;
-        $table_name = $wpdb->prefix . $this->table;
-        if (!Capsule::Schema()->hasTable($table_name)) {
-            Capsule::Schema()->create($table_name, function($table){
+        $table_name_with_prefix = $wpdb->prefix . $this->table;
+        if (!Capsule::Schema()->hasTable($table_name_with_prefix)) {
+            Capsule::Schema()->create($table_name_with_prefix, function($table){
                 $table->increments('id');
 
                 $table->timestamps();
@@ -64,37 +69,58 @@ class {{$file_name}} extends NFDatabase
 
     public function down() {
         global $wpdb;
-        $table_name = $wpdb->prefix . $this->table;
-        if (Capsule::Schema()->hasTable($table_name)) {
-            Capsule::Schema()->drop($table_name);
+        $table_name_with_prefix = $wpdb->prefix . $this->table;
+        if (Capsule::Schema()->hasTable($table_name_with_prefix)) {
+            Capsule::Schema()->drop($table_name_with_prefix);
         }
     }
 }
 EOT;
 
-        $compiled = BladeCompiler::compileString($migrate_blade, ['file_name' => $file_name, 'name_table' => $name_table]);
+        } else {
+            $stuff = <<<'EOT'
+use Illuminate\Database\Schema\Blueprint;
+use Garung\Database\Connect\NFDatabase;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+class {{$class_name}} extends NFDatabase
+{
+    private $table = '{{ $table_name }}';
+
+    public function up()
+    {
+        global $wpdb;
+        $table_name_with_prefix = $wpdb->prefix . $this->table;
+        if (Capsule::Schema()->hasTable($table_name_with_prefix)) {
+            Capsule::Schema()->table($table_name_with_prefix, function($table){
+
+            });
+        }
+    }
+
+    public function down() {
+
+    }
+}
+EOT;
+
+        }
+        $compiled = BladeCompiler::compileString($stuff, compact('class_name', 'table_name'));
         $compiled = <<<EOT
 <?php
 
 {$compiled}
 
 EOT;
+
         if (Storage::has($file_path)) {
-            if ($input->getOption('override') !== false) {
-                Storage::delete($file_path);
-            } else {
-                $output->write("<error>File exists: {$file_path}</error>", true);
-                return false;
-            }
+            $output->write("<error>File exists: {$file_path}</error>", true);
+            exit;
         }
 
         Storage::write($file_path, $compiled);
-        try {
-            exec('composer dump-autoload -o');
-        } catch(Exception $e) {
-            throw new Exception('Have a issue occur when composer dump-autoload');
-        }
-        $output->write("<info>{$file_name} is created success.</info>", true);
+        @exec('composer dump-autoload');
+        $output->writeln("<info>{$file_path} is created</info>", true);
     }
 
     /**
@@ -116,7 +142,7 @@ EOT;
      */
     protected function getPath($name, $path, $file_extension)
     {
-        return $path . '/' . $this->getDatePrefix() . '_' . $name . $file_extension;
+        return $path . DIRECTORY_SEPARATOR . $this->getDatePrefix() . '_' . $name . $file_extension;
     }
 
     /**
