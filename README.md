@@ -1,6 +1,6 @@
-## Another way to working with Database Wordpress via Migration 
- > It's an extension for our theme https://github.com/hieu-pv/nf-theme 
- 
+## Another way to working with database
+ > It's an extension for our theme https://github.com/hieu-pv/nf-theme
+
 #### Installation
 ##### Step 1: Install Through Composer
 ```
@@ -11,52 +11,58 @@ composer require garung/migration-for-nftheme
 
 ```php
   'providers'  => [
-        // .... Others providers 
+        // .... Others providers
         \Garung\Database\Providers\DatabaseServiceProvider::class,
     ],
 ```
 ##### Step 3: Add namespace
-> Open `composer.json` in your theme folder and add a line as below example
+> Update your `composer.json`
 
 ```php
     "autoload": {
-        "psr-4": {
-            // ... Others 
-            "Theme\\Database\\": "database/"
-        }
+        "classmap": [
+            "database"
+        ]
     },
 ```
-> DON'T REMEMBER  run `composer dump-autoload` or `composer dump-autoload -o`
+
 ##### Step 4: Run publish command
 > It will create a new folder `database` in your theme
 
 ```
 php command migration:publish
 ```
-##### Step 5: Create table in databse with migration command
-> You can create any table in your database by make:migration command:
 
+##### Step 5: Create migration file for new table
 
 ```php
-php command make:migration [name_migrate_file] [name_table_in_database]
+php command make:migration {file_name} --create="{table_name}"
+```
+
+Or you can create another to update existing table
+```php
+php command make:migration {file_name} --table="{existing_table_name}"
 ```
 
 Example:
 ```
-php command make:migration CreateTestTable test
+// create test table
+php command make:migration create_test_table --create=test
+
+// update test table
+php command make:migration add_more_column_to_test_table --table=test
 ```
 
-#### Use migration
-##### To run migration
+##### Step 4: Migrate your tables
 
 ```php
 php command migrate
-``` 
-##### Rollback all table is created by migration
+```
+###### Rollback all migration file
 
 ```php
 php command migrate:rollback
-``` 
+```
 
-## Last step
-##### Drink tea and relax !
+##### Last step
+> {tip} Drink tea and relax !
