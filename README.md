@@ -34,13 +34,12 @@ php command migration:publish
 ##### Step 5: Play with command
 
 Create migration file 
-
-```php
+```
 php command make:migration {file_name} --create="{table_name}"
 ```
 
 Or you can create another to update existing table
-```php
+```
 php command make:migration {file_name} --table="{existing_table_name}"
 ```
 
@@ -55,13 +54,13 @@ php command make:migration add_more_column_to_test_table --table=test
 
 ##### Step 6: Migrate your tables
 
-```php
+```
 php command migrate
 ```
 
 ###### Rollback all migration file
 
-```php
+```
 php command migrate:rollback
 ```
 
