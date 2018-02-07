@@ -1,0 +1,19 @@
+{
+    "name": "garung/migration-for-nftheme",
+    "description": "Packages for nf-theme",
+    "license": "MIT",
+    "authors": [{
+        "name": "garung",
+        "email": "daudq.info@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "Garung\\Database\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.6",
+        "symfony/event-dispatcher": "v3.4.*",
+        "nf/core": "*"
+    }
+}
