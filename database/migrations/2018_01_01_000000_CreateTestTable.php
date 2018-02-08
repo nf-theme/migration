@@ -1,7 +1,7 @@
 <?php
-namespace Theme\Database;
+namespace Vicoders\Database;
 
-use Garung\Database\Connect\NFDatabase;
+use Vicoders\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Blueprint;
 

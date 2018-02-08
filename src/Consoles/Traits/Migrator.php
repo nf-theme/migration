@@ -1,6 +1,6 @@
 <?php
 
-namespace Garung\Database\Consoles\Traits;
+namespace Vicoders\Database\Consoles\Traits;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Garung\Database\Connect;
+namespace Vicoders\Database\Connect;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;

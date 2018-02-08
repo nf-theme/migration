@@ -1,6 +1,6 @@
 <?php
 
-namespace Garung\Database\Connect;
+namespace Vicoders\Database\Connect;
 
 use NF\Facades\App;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Garung\Database\Providers;
+namespace Vicoders\Database\Providers;
 
-use Garung\Database\Connect\DBManager;
+use Vicoders\Database\Connect\DBManager;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -20,10 +20,10 @@ class DatabaseServiceProvider extends ServiceProvider
     public function registerCommand()
     {
         return [
-            \Garung\Database\Consoles\PublishCommand::class,
-            \Garung\Database\Consoles\MigrateCommand::class,
-            \Garung\Database\Consoles\MigrateRollbackCommand::class,
-            \Garung\Database\Consoles\MakeMigrationCommand::class,
+            \Vicoders\Database\Consoles\PublishCommand::class,
+            \Vicoders\Database\Consoles\MigrateCommand::class,
+            \Vicoders\Database\Consoles\MigrateRollbackCommand::class,
+            \Vicoders\Database\Consoles\MakeMigrationCommand::class,
         ];
     }
 }

@@ -4,7 +4,7 @@
 #### Installation
 ##### Step 1: Install Through Composer
 ```
-composer require garung/migration-for-nftheme
+composer require vicoders/migration-for-nftheme
 ```
 ##### Step 2: Add the Service Provider
 > Open `config/app.php` and register the required service provider.
@@ -12,7 +12,7 @@ composer require garung/migration-for-nftheme
 ```php
   'providers'  => [
         // .... Others providers
-        \Garung\Database\Providers\DatabaseServiceProvider::class,
+        \Vicoders\Database\Providers\DatabaseServiceProvider::class,
     ],
 ```
 ##### Step 3: Update autoload rule

@@ -1,7 +1,7 @@
 <?php
-namespace Garung\Database\Consoles;
+namespace Vicoders\Database\Consoles;
 
-use Garung\Database\Consoles\Traits\Migrator;
+use Vicoders\Database\Consoles\Traits\Migrator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
