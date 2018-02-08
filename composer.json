@@ -8,7 +8,7 @@
     }],
     "autoload": {
         "psr-4": {
-            "Garung\\Database\\": "src/"
+            "Vicoders\\Database\\": "src/"
         }
     },
     "require": {
