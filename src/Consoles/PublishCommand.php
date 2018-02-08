@@ -1,6 +1,6 @@
 <?php
 
-namespace Garung\Database\Consoles;
+namespace Vicoders\Database\Consoles;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,7 +11,7 @@ class PublishCommand extends Command
     protected function configure()
     {
         $this->setName('migration:publish')
-            ->setDescription('Publish configuration for garung/migration');
+            ->setDescription('Publish configuration for vicoders/migration');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
