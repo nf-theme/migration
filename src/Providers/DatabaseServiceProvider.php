@@ -2,8 +2,8 @@
 
 namespace Vicoders\Database\Providers;
 
-use Vicoders\Database\Connect\DBManager;
 use Illuminate\Support\ServiceProvider;
+use Vicoders\Database\Connect\DBManager;
 
 /**
  * Class DatabaseProvider
@@ -16,6 +16,7 @@ class DatabaseServiceProvider extends ServiceProvider
             return new DBManager;
         });
 
+        // check exist folders
         if (!is_dir(get_stylesheet_directory() . '/database')) {
             mkdir(get_stylesheet_directory() . '/database', 0755);
         }
