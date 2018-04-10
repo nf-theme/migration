@@ -32,8 +32,8 @@ class PublishCommand extends Command
             mkdir('database/seeders', 0755);
         }
         
-        if (!file_exists('database/migrations/2018_01_01_000000_CreateTestTable.php')) {
-            copy('db/resources/database/migrations/2018_01_01_000000_CreateTestTable.php', 'database/migrations/2018_01_01_000000_CreateTestTable.php');
-        }
+        // if (!file_exists('database/migrations/2018_01_01_000000_CreateTestTable.php')) {
+        //     copy('db/resources/database/migrations/2018_01_01_000000_CreateTestTable.php', 'database/migrations/2018_01_01_000000_CreateTestTable.php');
+        // }
     }
 }
