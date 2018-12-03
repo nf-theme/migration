@@ -1,9 +1,9 @@
 <?php
 
-namespace Vicoders\Database\Providers;
+namespace NF\Database\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Vicoders\Database\Connect\DBManager;
+use NF\Database\Connect\DBManager;
 
 /**
  * Class DatabaseProvider
@@ -29,10 +29,10 @@ class DatabaseServiceProvider extends ServiceProvider
     public function registerCommand()
     {
         return [
-            \Vicoders\Database\Consoles\PublishCommand::class,
-            \Vicoders\Database\Consoles\MigrateCommand::class,
-            \Vicoders\Database\Consoles\MigrateRollbackCommand::class,
-            \Vicoders\Database\Consoles\MakeMigrationCommand::class,
+            \NF\Database\Consoles\PublishCommand::class,
+            \NF\Database\Consoles\MigrateCommand::class,
+            \NF\Database\Consoles\MigrateRollbackCommand::class,
+            \NF\Database\Consoles\MakeMigrationCommand::class,
         ];
     }
 }

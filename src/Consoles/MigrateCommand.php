@@ -1,7 +1,7 @@
 <?php
-namespace Vicoders\Database\Consoles;
+namespace NF\Database\Consoles;
 
-use Vicoders\Database\Consoles\Traits\Migrator;
+use NF\Database\Consoles\Traits\Migrator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

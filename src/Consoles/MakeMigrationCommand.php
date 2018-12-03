@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Database\Consoles;
+namespace NF\Database\Consoles;
 
 use NF\CompileBladeString\Facade\BladeCompiler;
 use NF\Facades\Storage;
@@ -47,7 +47,7 @@ class MakeMigrationCommand extends Command
         if ($mode == self::CREATE) {
             $stuff = <<<'EOT'
 use Illuminate\Database\Schema\Blueprint;
-use Vicoders\Database\Connect\NFDatabase;
+use NF\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class {{$class_name}} extends NFDatabase
@@ -80,7 +80,7 @@ EOT;
         } else {
             $stuff = <<<'EOT'
 use Illuminate\Database\Schema\Blueprint;
-use Vicoders\Database\Connect\NFDatabase;
+use NF\Database\Connect\NFDatabase;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class {{$class_name}} extends NFDatabase

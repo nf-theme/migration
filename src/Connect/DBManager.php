@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Database\Connect;
+namespace NF\Database\Connect;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;

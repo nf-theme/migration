@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Database\Connect;
+namespace NF\Database\Connect;
 
 use NF\Facades\App;
 

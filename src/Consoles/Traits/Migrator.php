@@ -1,6 +1,6 @@
 <?php
 
-namespace Vicoders\Database\Consoles\Traits;
+namespace NF\Database\Consoles\Traits;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
