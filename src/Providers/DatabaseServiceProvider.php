@@ -17,13 +17,13 @@ class DatabaseServiceProvider extends ServiceProvider
         });
 
         // check exist folders
-        if (!is_dir(get_stylesheet_directory() . '/database')) {
-            mkdir(get_stylesheet_directory() . '/database', 0755);
-        }
+        // if (!is_dir(get_stylesheet_directory() . '/database')) {
+        //     mkdir(get_stylesheet_directory() . '/database', 0755);
+        // }
 
-        if (!is_dir(get_stylesheet_directory() . '/database/migrations')) {
-            mkdir(get_stylesheet_directory() . '/database/migrations', 0755);
-        }
+        // if (!is_dir(get_stylesheet_directory() . '/database/migrations')) {
+        //     mkdir(get_stylesheet_directory() . '/database/migrations', 0755);
+        // }
     }
 
     public function registerCommand()
