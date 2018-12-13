@@ -14,12 +14,16 @@
 
 ## Installation
 
-### Use in Plugin
-Copy file `uninstall.php` from ` plugin / uninstall.php`.
-(So when unistall the plugin will automatically delete the tables)
+> Migration package can be used in plugin also, with a plugin that is created with NF Core module
 
-### To create a new plugin use nf-theme `vcc create-project --name =" plugin_name "`
-(Select item `7`)
+To create an empty plugin that use NF Core module, move to wp-contents/plugins
+By running following command and select correct option you can create an empty plugin
+
+```
+vcc create-project --name="your_plugin_name"
+```
+
+Copy file `uninstall.php` from `plugin/uninstall.php`. So when plugin is unistalled the tables will automatically deleted
 
 ### Step 1: Install Through Composer
 
