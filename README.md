@@ -25,6 +25,8 @@ vcc create-project --name="your_plugin_name"
 
 Copy file `uninstall.php` from `plugin/uninstall.php`. So when plugin is unistalled the tables will automatically deleted
 
+To use nf-core module in your plugin make sure you have correct configuration in `config/app.php` with `is_plugin=true` and `plugin_file={your_main_plugin_file_name}`
+
 ### Step 1: Install Through Composer
 
 ```
