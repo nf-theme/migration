@@ -4,6 +4,7 @@ namespace NF\Database\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use NF\Database\Connect\DBManager;
+use Illuminate\Support\Collection;
 
 /**
  * Class DatabaseProvider
@@ -28,19 +29,17 @@ class DatabaseServiceProvider extends ServiceProvider
 
     public function up()
     {
-        global $wpdb;
-
         $migrations_folder_path = $this->app->appPath() . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
         $files                  = new Collection(scandir($migrations_folder_path));
         $files                  = $files->filter(function ($item) {
             return $item !== '.' && $item !== '..';
         });
 
-        $files->each(function ($file) use ($migrations_folder_path, $wpdb) {
+        $files->each(function ($file) use ($migrations_folder_path) {
             $content = file_get_contents($migrations_folder_path . DIRECTORY_SEPARATOR . $file);
             preg_match('/.*class\s([a-zA-Z0-9]*)\s.*/', $content, $matches);
             $classname = $matches[1];
-            $instance  = new $classname($wpdb);
+            $instance  = new $classname();
             $instance->up();
         });
     }

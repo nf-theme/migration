@@ -14,6 +14,10 @@
 
 ## Installation
 
+### Use in Plugin
+Copy file `uninstall.php` from ` plugin / uninstall.php`.
+(So when unistall the plugin will automatically delete the tables)
+
 ### Step 1: Install Through Composer
 
 ```
