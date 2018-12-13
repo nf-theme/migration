@@ -18,6 +18,9 @@
 Copy file `uninstall.php` from ` plugin / uninstall.php`.
 (So when unistall the plugin will automatically delete the tables)
 
+### To create a new plugin use nf-theme `vcc create-project --name =" plugin_name "`
+(Select item `7`)
+
 ### Step 1: Install Through Composer
 
 ```
