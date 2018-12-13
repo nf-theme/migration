@@ -16,7 +16,8 @@
 
 > Migration package can be used in plugin also, with a plugin that is created with NF Core module
 
-To create an empty plugin that use NF Core module, move to wp-contents/plugins
+To create an empty plugin that use NF Core module, move to `wp-contents/plugins`
+
 By running following command and select correct option you can create an empty plugin
 
 ```
