@@ -16,14 +16,33 @@ class DatabaseServiceProvider extends ServiceProvider
             return new DBManager;
         });
 
-        // check exist folders
-        // if (!is_dir(get_stylesheet_directory() . '/database')) {
-        //     mkdir(get_stylesheet_directory() . '/database', 0755);
-        // }
+        if ($this->app->config('is_plugin') === true) {
+            if (method_exists($this, 'up')) {
+                register_activation_hook($this->app->appPath() . DIRECTORY_SEPARATOR . $this->app->config('plugin_file'), [$this, 'up']);
+            }
+            // if (method_exists($this, 'down')) {
+            //     register_uninstall_hook($this->app->appPath() . DIRECTORY_SEPARATOR . $this->app->config('plugin_file'), [$this, 'down']);
+            // }
+        }
+    }
 
-        // if (!is_dir(get_stylesheet_directory() . '/database/migrations')) {
-        //     mkdir(get_stylesheet_directory() . '/database/migrations', 0755);
-        // }
+    public function up()
+    {
+        global $wpdb;
+
+        $migrations_folder_path = $this->app->appPath() . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
+        $files                  = new Collection(scandir($migrations_folder_path));
+        $files                  = $files->filter(function ($item) {
+            return $item !== '.' && $item !== '..';
+        });
+
+        $files->each(function ($file) use ($migrations_folder_path, $wpdb) {
+            $content = file_get_contents($migrations_folder_path . DIRECTORY_SEPARATOR . $file);
+            preg_match('/.*class\s([a-zA-Z0-9]*)\s.*/', $content, $matches);
+            $classname = $matches[1];
+            $instance  = new $classname($wpdb);
+            $instance->up();
+        });
     }
 
     public function registerCommand()
